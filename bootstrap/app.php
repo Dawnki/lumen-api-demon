@@ -27,10 +27,12 @@ $app->withFacades();
 
 $app->withEloquent();
 
+
 //config
 
 $app->configure('auth');
 $app->configure('jwt');
+$app->configure('api');
 
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +75,7 @@ $app->singleton(
 //     'auth' => App\Http\Middleware\Authenticate::class,
 // ]);
 
+
 /*
 |--------------------------------------------------------------------------
 | Register Service Providers
@@ -88,11 +91,19 @@ $app->singleton(
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
+$app->register(Dingo\Api\Provider\LumenServiceProvider::class);
+
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
+
+app('Dingo\Api\Auth\Auth')->extend('jwt', function ($app) {
+    return new Dingo\Api\Auth\Provider\JWT($app['Tymon\JWTAuth\JWTAuth']);
+});
 
 $app->singleton(Illuminate\Auth\AuthManager::class, function ($app) {
     return $app->make('auth');
 });
+
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
@@ -106,6 +117,7 @@ $app->singleton(Illuminate\Auth\AuthManager::class, function ($app) {
 
 $app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
     require __DIR__.'/../routes/web.php';
+    require __DIR__.'/../routes/api.php';
 });
 
 return $app;
