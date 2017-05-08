@@ -17,7 +17,7 @@ class User extends Model implements AuthenticatableContract, JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email',
+        'email','username','password'
     ];
 
     /**
@@ -29,6 +29,12 @@ class User extends Model implements AuthenticatableContract, JWTSubject
         'password',
     ];
 
+    public static function isExistByName($username)
+    {
+        $data=self::where('username',$username)->first();
+        if(empty($data)) return false;
+        else return true;
+    }
 
     // jwt 需要实现的方法
     public function getJWTIdentifier()

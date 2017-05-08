@@ -30,9 +30,8 @@ $app->withEloquent();
 
 //config
 
-$app->configure('auth');
+//$app->configure('auth');
 $app->configure('jwt');
-$app->configure('api');
 
 /*
 |--------------------------------------------------------------------------
@@ -102,6 +101,7 @@ app('Dingo\Api\Auth\Auth')->extend('jwt', function ($app) {
 $app->singleton(Illuminate\Auth\AuthManager::class, function ($app) {
     return $app->make('auth');
 });
+
 
 
 /*
