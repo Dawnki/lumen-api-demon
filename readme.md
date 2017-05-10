@@ -8,7 +8,7 @@
 
 ## 介绍
 
-配lumen的环境配了很久，参考了https://github.com/liyu001989/lumen-api-demo，配起来就快了很多。
+配lumen的环境配了很久，参考了https://github.com/liyu001989/lumen-api-demo  配起来就快了很多。
 
 感觉dingo的自动生成api文档不太好用，所以就改用swagger了。
 
