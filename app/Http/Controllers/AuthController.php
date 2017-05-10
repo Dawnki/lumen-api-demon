@@ -14,9 +14,15 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
+    /**
+     * @Post("/register")
+     * @versions({"v1"})
+     *
+     */
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -37,11 +43,11 @@ class AuthController extends Controller
 
         User::create([
             'username' => $Req['username'],
-            'password' => $Req['password'],
-            'email'    => bcrypt($Req['email'])
+            'password' => bcrypt($Req['password']),
+            'email'    => $Req['email']
         ]);
 
-        return $this->response->created(null,'注册成功!');
+        return $this->response->created(null,success('注册成功!'));
     }
 
     public function postLogin(Request $request)

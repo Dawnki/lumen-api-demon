@@ -13,8 +13,10 @@ $api->version('v1', function ($api) {
 
         $api->post('test',['uses'=>'Controller@test']);
 
+        //登陆
         $api->post('login',['uses'=>'AuthController@postLogin']);
 
+        //注册
         $api->post('register',['uses'=>'AuthController@register']);
 
         $api->post('test1',['uses'=>'Controller@test1','middleware'=>'api.auth']);

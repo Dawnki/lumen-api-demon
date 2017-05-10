@@ -23,13 +23,14 @@ class Controller extends BaseController
     //
     public function test()
     {
-        return json_encode(Auth::attempt(['username' => 123, 'password' => '123']));
+        return json_encode(Auth::attempt(['username' => 'Dawnki', 'password' => '123456']));
         //User::create(['username'=>55555,'password'=>bcrypt('fuckyou')]);
         //return 1;
     }
 
     public function test1()
     {
+        return "111";
         //JWTAuth::unsetToken();
         //Auth::logout();
         //return 1;

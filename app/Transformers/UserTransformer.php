@@ -33,7 +33,7 @@ class UserTransformer extends TransformerAbstract
             'id'        => $user->id,
             'username'  => $user->username,
             'email'     => $user->email,
-            'score'     => $user->score,
+            'identity'  => $user->identity
         ];
 
         if(!empty($extra)){
