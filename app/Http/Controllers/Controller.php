@@ -11,7 +11,9 @@ use Dingo\Api\Http\Response;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\URL;
 use Laravel\Lumen\Routing\Controller as BaseController;
+use Swagger\Annotations\Swagger;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Transformers\UserTransformer;
 
@@ -19,27 +21,6 @@ use App\Transformers\UserTransformer;
 class Controller extends BaseController
 {
     use Helpers;
-
-    //
-    public function test()
-    {
-        return json_encode(Auth::attempt(['username' => 'Dawnki', 'password' => '123456']));
-        //User::create(['username'=>55555,'password'=>bcrypt('fuckyou')]);
-        //return 1;
-    }
-
-    public function test1()
-    {
-        return "111";
-        //JWTAuth::unsetToken();
-        //Auth::logout();
-        //return 1;
-        //$user = User::find(3);
-        //return $this->response->item($user,new UserTransformer());
-        //return $this->response->array($user->toArray());
-        //return $this->response->noContent();
-        //return JWTAuth::refresh();
-    }
 
     /**
      *  参数验证失败返回错误信息处理
@@ -61,5 +42,18 @@ class Controller extends BaseController
         }
 
          throw new ValidationHttpException($result);
+    }
+
+    /**
+     * @param $filename
+     * @SWG\Info(title="API", version="1.0")
+     */
+    public function getSwagger($filename='apidoc'){
+        $Controllers_dir=__DIR__.'/';
+        $OutPut_dir=__DIR__.'/../../../public/swagger-ui/json/';
+        $swagger=\Swagger\scan($Controllers_dir);
+        $file=fopen($OutPut_dir.$filename.'.json',"w");
+        fwrite($file,urldecode(json_encode($swagger)));
+        fclose($file);
     }
 }

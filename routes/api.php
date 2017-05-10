@@ -11,7 +11,8 @@ $api = app('Dingo\Api\Routing\Router');
 $api->version('v1', function ($api) {
     $api->group(['prefix'=>'v1','namespace'=>'App\Http\Controllers'],function() use($api){
 
-        $api->post('test',['uses'=>'Controller@test']);
+        //用于生成文档
+        $api->get('generateDoc',['uses'=>'Controller@getSwagger']);
 
         //登陆
         $api->post('login',['uses'=>'AuthController@postLogin']);

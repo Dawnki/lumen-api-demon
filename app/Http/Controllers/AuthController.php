@@ -19,9 +19,22 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 class AuthController extends Controller
 {
     /**
-     * @Post("/register")
-     * @versions({"v1"})
      *
+     * @SWG\Get(path="/swagger/my-data",
+     *   tags={"project"},
+     *   summary="数据",
+     *   description="请求该接口需要先登录。",
+     *   operationId="getMyData",
+     *   produces={"application/json"},
+     *   @SWG\Parameter(
+     *     in="formData",
+     *     name="reason",
+     *     type="string",
+     *     description="描述",
+     *     required=true,
+     *   ),
+     *   @SWG\Response(response="default", description="操作成功")
+     * )
      */
     public function register(Request $request)
     {
